@@ -1,0 +1,28 @@
+<system-data-structure>
+    <text identifier="block_heading" label="Block Heading"/>
+    <text multi-line="true" identifier="embedBox" label="Issuu Embed Code" help-text="CAS uses ISSUU to publish newsletters.  Paste the appropriate embed code here."/>
+    <text identifier="issuuURL" label="Issuu URL" help-text="CAS uses ISSUU to publish newsletters.  Paste the appropriate URL path here."/>
+    <text identifier="facebookURL" label="Facebook Page"/>
+    <text identifier="twitterURL" label="Twitter Feed"/>
+    <text identifier="youtubeURL" label="YouTube Channel"/>
+    <text identifier="instagramURL" label="Instagram"/>
+    <text identifier="flickrURL" label="Flickr"/>
+    <text identifier="linkedinURL" label="LinkedIn"/>
+    <text identifier="googlePlusURL" label="Google+"/>
+    <group identifier="customSites" label="Custom Sites" collapsed="true">
+        <group identifier="customSite" label="Custom Site" multiple="true">
+            <text identifier="customSiteName" label="Site Name"/>
+            <asset type="page" identifier="intLink" label="Internal Link"/>
+            <text identifier="customURL" label="-or- External Link"/>
+            <asset type="file" identifier="customLogo" label="Logo" help-text="You are responsible for adhearing to usage specifications set by the given site. "/>
+        </group>
+    </group>
+    <group identifier="affiliatedSites" label="Affiliated Sites" collapsed="true">
+        <text identifier="affiliateHeading" label="Affiliates Heading"/>
+        <group identifier="affiliatedSite" label="Affiliated Site" multiple="true">
+            <text identifier="affiliatedSiteName" label="Site Name"/>
+            <text identifier="affiliateURL" label="URL"/>
+            <asset type="file" identifier="affiliateLogo" label="Logo" help-text="You are responsible for adhearing to usage specifications set by the given site. "/>
+        </group>
+    </group>
+</system-data-structure>

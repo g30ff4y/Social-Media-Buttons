@@ -1,0 +1,175 @@
+#if ($contentRoot)    
+    #set ($pageStructure = $_XPathTool.selectSingleNode($contentRoot, "/system-data-structure") )
+    
+    #set ($customSites = $_XPathTool.selectNodes($pageStructure, "//customSite"))
+    #set ($affiliates = $_XPathTool.selectSingleNode($pageStructure, "affiliatedSites"))
+    #set ($affiliatedSites = $_XPathTool.selectNodes($pageStructure, "//affiliatedSite"))
+    
+    <div id="socialMedia">
+       
+        ##social sites and newsletter
+        
+        #set ($block_heading = "")
+        #set ($block_heading = $_SerializerTool.serialize($pageStructure.getChild("block_heading"), true))
+        #if ($block_heading != "") 
+            <h3>$block_heading</h3>
+        #end
+         
+        #set ($newsletterCode = "")
+        #set ($newsletterCode = $pageStructure.getChild("embedBox").value )
+        #if ($newsletterCode != "")
+           $newsletterCode   
+        #end    
+    
+        #set ($newsLetter = "")
+        #set ($facebook = "")
+        #set ($twitter = "")
+        #set ($youtube = "")
+        #set ($instagram = "")
+        #set ($linkedin = "")
+        #set ($googlePlus = "")
+        #set ($customSiteCheck = "")
+        
+        #set ($newsLetter = $_SerializerTool.serialize($pageStructure.getChild("issuuURL"), true))
+        #set ($facebook = $_SerializerTool.serialize($pageStructure.getChild("facebookURL"), true))
+        #set ($twitter = $_SerializerTool.serialize($pageStructure.getChild("twitterURL"), true))
+        #set ($youtube = $_SerializerTool.serialize($pageStructure.getChild("youtubeURL"), true))
+        #set ($instagram = $_SerializerTool.serialize($pageStructure.getChild("instagramURL"), true))
+        #set ($linkedin = $_SerializerTool.serialize($pageStructure.getChild("linkedinURL"), true))
+        #set ($googlePlus = $_SerializerTool.serialize($pageStructure.getChild("googlePlusURL"), true))
+       
+        #set ($customSiteCheck = $_SerializerTool.serialize($customSites.get(0).getChild("customURL"), true))
+        
+        #if ($newsLetter != "" || $facebook != "" || $twitter != "" || $linkedin != "" || $instagram != "" || $youtube != "" || $googlePlus != "" || $customSiteCheck != "")
+       
+            <ul class="socialMedia">
+                #if($newsLetter != "")
+                    <li class="newsletter">
+                        <a href="$newsLetter" target="_blank">
+                            <img alt="department newsletter" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/newsLetter/newsletterIcon.png" />
+                        </a>
+                    </li>
+                #end
+                
+                #if($facebook != "")
+                    #if ($twitter == "" && $linkedin == "" && $instagram == "" && $youtube == "" && $googlePlus == "" && $customSiteCheck == "")
+                        <li class="facebookFindUs">
+                            <a href="$facebook" target="_blank">
+                                <img alt="facebook icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/facebook/findUsBadge/FB_FindUsOnFacebook-512.png" />    
+                            </a>
+                        </li>
+                    #else
+                        <li class="facebookF">
+                            <a href="$facebook" target="_blank">
+                                <img alt="facebook icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/facebook/facebookF/FB-f-Logo__blue_512.png" />    
+                            </a>
+                        </li>                         
+                    #end    
+                #end
+                
+                #if($twitter != "")    
+                    <li class="twitter">
+                        <a href="$twitter" target="_blank">
+                            <img alt="twitter icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/twitter/twitter-bird-white-on-blue.png" />
+                        </a>
+                    </li>
+                #end
+                
+                #if($youtube != "")
+                    #if ($twitter == "" && $linkedin == "" && $instagram == "" && $facebook == "" && $googlePlus == "" && $customSiteCheck == "")
+                        <li class="youtubeStandard">
+                            <a href="$youtube" target="_blank">
+                                <img alt="youtube icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/youTube/YouTube-Standard-Logo.png" />
+                            </a>
+                        </li>
+                    #else
+                        <li class="youtubeStacked">
+                            <a href="$youtube" target="_blank">
+                                <img alt="youtube icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/youTube/YouTube-Social-Logo.png" />
+                            </a>
+                        </li>
+                    #end
+                #end
+                
+                #if($linkedin != "")
+                    <li class="linkedin">
+                        <a href="$linkedin" target="_blank">
+                            <img alt="linkedin icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/linkedin/LinkedIn-InBug-Large-500px-wide.png" />
+                        </a>
+                    </li>
+                #end
+                
+                #if($instagram != "") 
+                    <li class="instagram">
+                        <a href="$instagram" target="_blank">
+                            <img alt="instagram icon" src="http://cas.umt.edu/draft/sfd_new_templates/images/socialMedia/instagram/Instagram_Icon_Large.png" />
+                        </a>
+                    </li>
+                #end
+                
+                #if($googlePlus != "") 
+                    <li class="googlePlus">
+                        <a href="$googlePlus" target="_blank">
+                            <img alt="Google+ icon" src="//ssl.gstatic.com/images/icons/gplus-64.png"  />
+                        </a>
+                   </li>     
+                #end                        
+                
+                #foreach ($customSite in $customSites)
+                    
+                    #set ($siteName = "")
+                    #set ($link = "")
+                    #set ($image = "")
+    
+                    #set ($siteName =  $_SerializerTool.serialize($customSite.getChild("customSiteName"), true)) 
+                    #set ($link = $_SerializerTool.serialize($customSite.getChild("customURL"), true))
+                    #set ($image = $_SerializerTool.serialize($customSite.getChild("customLogo").getChild("path"), true))
+                    
+                    #if($link != "")    
+                        <li>
+                            <a alt="$siteName" href="$link" target="_blank">
+                                <img alt="$siteName icon"  src="[system-asset]${image}[/system-asset]"/>
+                            </a>
+                        </li>
+                    #end
+                    
+                #end ##customSite Loop
+            </ul>
+        #end    ##social media
+    
+    <div style="clear:both"></div>
+    ##Affiliated Sites
+        
+        #set ($affiliateHeading = "")
+        #set ($affiliateHeading = $_SerializerTool.serialize($affiliates.getChild("affiliateHeading"), true))
+        #if ($affiliateHeading != "") 
+            <h3>$affiliateHeading</h3>
+        #end           
+        
+        #set ($affiliateSiteCheck = "")       
+        #set ($affiliateSiteCheck = $_SerializerTool.serialize($affiliatedSites.get(0).getChild("affiliateURL"), true))       
+        #if ($affiliateSiteCheck != "")
+            <ul class="affiliatedSites">       
+               #foreach ($affiliatedSite in $affiliatedSites)
+                    
+                    #set ($affSiteName = "")
+                    #set ($affLink = "")
+                    #set ($affImage = "")
+    
+                    #set ($affSiteName =  $_SerializerTool.serialize($affiliatedSite.getChild("affiliatedSiteName"), true)) 
+                    #set ($affLink = $_SerializerTool.serialize($affiliatedSite.getChild("affiliateURL"), true))
+                    #set ($affImage = $_SerializerTool.serialize($affiliatedSite.getChild("affiliateLogo").getChild("path"), true))
+                    
+                    #if($affLink != "")    
+                        <li>
+                            <a alt="$affSiteName" href="$affLink" target="_blank">
+                                <img alt="$affSiteName icon" src="[system-asset]${affImage}[/system-asset]"/>
+                            </a>
+                        </li>
+                    #end
+                #end 
+            </ul>   
+        #end ##affiliatedSite Loop
+            
+    </div><!--socialMedia-->
+#end    
